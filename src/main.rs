@@ -182,22 +182,10 @@ impl<T> One for TaylorNumber<T> where
     T: TaylorScalar<T>{
 
     fn one() -> Self {
-        TaylorNumber::Unperturbed(T::one())
+        Self::Unperturbed(T::one())
     }
 }
 
 // TODO: implement Inv and then just derive Div with that and multiplication
 
-impl<T> Div<T> for TaylorNumber<T> where 
-    T: TaylorScalar<T>{
-
-    type Output = Self;
-
-    fn div(self, rhs:T) -> Self{
-        match self{
-            Self::Unperturbed(re) => Self::Unperturbed(re * rhs),
-            Self::Perturbed(re, df) => Self::Perturbed(re*rhs, Box::new(*df * rhs))
-        }
-    }
-}
 
